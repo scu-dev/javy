@@ -10,6 +10,7 @@ public class Font {
         java.awt.Font font = new java.awt.Font(name, java.awt.Font.BOLD, size);
         UnicodeFont unicodeFont = new UnicodeFont(font);
         unicodeFont.getEffects().add(new ColorEffect(color));
+        unicodeFont.addGlyphs('0', '9');
         unicodeFont.addAsciiGlyphs();
         unicodeFont.loadGlyphs();
         return unicodeFont;

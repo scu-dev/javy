@@ -29,7 +29,7 @@ public final class Submarine extends Sprite<Submarine.State> {
 
     public void update(int deltaTicks) {
         int windowHeight = gc.getHeight(), windowWidth = gc.getWidth();
-        if (hitbox.x < 0 || hitbox.y < 0 || hitbox.y + hitbox.height / 2.0f > windowHeight || hitbox.x + hitbox.width / 2.0f > windowWidth) destroyInTicks(0);
+        if (hitbox.x < -hitbox.width / 2.0f || hitbox.y < -hitbox.height / 2.0f || hitbox.y > windowHeight + hitbox.height / 2.0f || hitbox.x > windowWidth + hitbox.width / 2.0f) destroyInTicks(0);
         switch (state) {
             case MOVING_LEFT -> hitbox.x -= deltaTicks * speed;
             case MOVING_RIGHT -> hitbox.x += deltaTicks * speed;

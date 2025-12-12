@@ -14,7 +14,7 @@ repositories {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(22))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -40,6 +40,8 @@ dependencies {
     implementation("org.lwjgl.lwjgl:lwjgl_util:${lwjglVersion}")
     // LWJGL native libs
     lwjglNatives("org.lwjgl.lwjgl:lwjgl-platform:$lwjglVersion:$nativesClassifier")
+    //lwjglNatives("org.lwjgl.lwjgl:lwjgl-platform:$lwjglVersion:natives-linux")
+    //lwjglNatives("org.lwjgl.lwjgl:lwjgl-platform:$lwjglVersion:natives-osx")
     // JInput
     implementation("net.java.jinput:jinput:2.0.5")
     jinputNatives("net.java.jinput:jinput-platform:2.0.5:$nativesClassifier")
@@ -62,16 +64,12 @@ application {
 
 tasks.named<CreateStartScripts>("startScripts") {
     dependsOn(copyNatives)
-    defaultJvmOpts = listOf(
-        "-Djava.library.path=MY_APP_HOME/natives",
-        "-Dorg.lwjgl.librarypath=MY_APP_HOME/natives"
-    )
     doLast {
         unixScript.writeText(
-            unixScript.readText().replace("MY_APP_HOME", "\$APP_HOME")
+            unixScript.readText().replace("DEFAULT_JVM_OPTS=\"\"", "DEFAULT_JVM_OPTS=\"-Djava.library.path=\$APP_HOME/natives -Dorg.lwjgl.librarypath=\$APP_HOME/natives\"")
         )
         windowsScript.writeText(
-            windowsScript.readText().replace("MY_APP_HOME", "%~dp0..")
+            windowsScript.readText().replace("DEFAULT_JVM_OPTS=", "DEFAULT_JVM_OPTS=\"-Djava.library.path=%~dp0../natives\" \"-Dorg.lwjgl.librarypath=%~dp0../natives\"")
         )
     }
 }

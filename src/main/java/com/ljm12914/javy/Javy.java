@@ -42,8 +42,8 @@ public final class Javy extends BasicGame {
         warship = new Warship(gc);
         sprites.add(warship);
         scoreboard = new Scoreboard();
-        scoreFont = Font.get("Verdana", 32, java.awt.Color.BLACK);
-        splashFont = Font.get("Verdana", 64, java.awt.Color.BLACK);
+        scoreFont = Font.get("Arial", 32, java.awt.Color.BLACK);
+        splashFont = Font.get("Arial", 64, java.awt.Color.BLACK);
     }
 
     @Override
@@ -70,7 +70,9 @@ public final class Javy extends BasicGame {
         }
         if (Random.decide(0.001f)) {
             boolean spawnFromRight = Random.decide(0.5f);
-            float speed = Random.floatInRange(0.2f, 0.9f), yRatio = Random.floatInRange(seaLevelRatio, 1.0f), y = Math.clamp(size * yRatio, size * seaLevelRatio - Submarine.height + size * 0.1f, size - Submarine.height / 2.0f);
+            float speed = Random.floatInRange(0.2f, 0.9f), yRatio = Random.floatInRange(seaLevelRatio, 1.0f), y = size * yRatio;
+            if (y < size * seaLevelRatio - Submarine.height + size * 0.1f) y = size * seaLevelRatio - Submarine.height + size * 0.1f;
+            if (y > size - Submarine.height / 2.0f) y = size - Submarine.height / 2.0f;
             Submarine submarine = new Submarine(gc, spawnFromRight ? size - Submarine.width / 2.0f : Submarine.width / 2.0f, y, speed, !spawnFromRight);
             sprites.add(submarine);
         }
