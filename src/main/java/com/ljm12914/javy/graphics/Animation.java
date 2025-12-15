@@ -14,7 +14,7 @@ public final class Animation {
         this.ticksPerFrame = ticksPerFrame;
     }
 
-    public void update(int deltaTime) { elapsedTicks += deltaTime; }
+    public void update(int deltaTicks) { elapsedTicks += deltaTicks; }
 
     public Image current() {
         if (ticksPerFrame == 0) return frames[0];
