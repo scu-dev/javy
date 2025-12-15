@@ -53,7 +53,7 @@ public final class Javy extends BasicGame {
             if (!sprite.isPersisting()) sprite.countDown();
             sprite.update(deltaTicks);
         }
-        sprites.removeIf(sprite -> !sprite.isPersisting() && sprite.getRemoveCountdown() == 0);
+        sprites.removeIf(sprite -> !sprite.isPersisting() && sprite.getRemoveCountdown() <= 0);
         Input input = gc.getInput();
         if (KeyPress.isLeftDown(input)) warship.goLeft(deltaTicks, KeyPress.isCtrlDown(input) ? ctrlModifier : 1.0f);
         if (KeyPress.isRightDown(input)) warship.goRight(deltaTicks, KeyPress.isCtrlDown(input) ? ctrlModifier : 1.0f);
