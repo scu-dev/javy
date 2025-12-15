@@ -3,8 +3,8 @@ import org.newdawn.slick.Image;
 
 public final class Animation {
     private final Image[] frames;
-    private final float ticksPerFrame;
-    private float elapsedTicks = 0.0f;
+    private final int ticksPerFrame;
+    private int elapsedTicks = 0;
 
     public Animation(Image[] frames, int ticksPerFrame) {
         if (frames == null) throw new IllegalArgumentException("No frames provided");
@@ -18,7 +18,7 @@ public final class Animation {
 
     public Image current() {
         if (ticksPerFrame == 0) return frames[0];
-        int frameIndex = (int) (elapsedTicks / ticksPerFrame) % frames.length;
+        int frameIndex = (elapsedTicks / ticksPerFrame) % frames.length;
         return frames[frameIndex];
     }
 
